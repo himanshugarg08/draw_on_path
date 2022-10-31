@@ -9,6 +9,16 @@ A Flutter package that is used to draw text or patterm along the given path.
 - Draw pattern along path
 - Support non-continuous path
 
+## Showcase
+
+<img src="./gifs/1.gif" width="360">
+<img src="./gifs/2.gif" width="360">
+<img src="./gifs/3.gif" width="360">
+<img src="./gifs/4.gif" width="360">
+<img src="./gifs/5.gif" width="360">
+<img src="./gifs/6.gif" width="360">
+<img src="./gifs/7.gif" width="360">
+
 ## Usage
 
 * `drawTextOnPath` function is used to draw `text` along `path`.
@@ -36,6 +46,8 @@ A Flutter package that is used to draw text or patterm along the given path.
         spacing: 70,
       );
     ```
+
+- **Note**: *If the `text` (for given `textStyle`) is larger than the `path`, then it will clip extra text.*
 
 ## Contributing
 
