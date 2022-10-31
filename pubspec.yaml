@@ -1,0 +1,20 @@
+name: draw_on_path
+description: A Flutter package that draws text or pattern on path.
+version: 0.0.1
+repository: https://github.com/himanshugarg08/asset_file_generator
+homepage:
+
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
