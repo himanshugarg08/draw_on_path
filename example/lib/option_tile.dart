@@ -27,7 +27,7 @@ class OptionTile extends StatelessWidget {
           ),
           groupValue: selectedPathType,
           activeColor: Colors.white,
-          onChanged: (_) {
+          onChanged: (PathType? _) {
             if (_ == null) {
               return;
             }
