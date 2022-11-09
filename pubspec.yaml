@@ -1,5 +1,5 @@
 name: draw_on_path
-description: A Flutter package that draws text or pattern on path.
+description: A Flutter package that is used to draw text or patterm along the given path.
 version: 0.0.1
 repository: https://github.com/himanshugarg08/draw_on_path
 homepage: https://github.com/himanshugarg08/draw_on_path

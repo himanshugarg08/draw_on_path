@@ -43,7 +43,11 @@ extension DrawOnPath on Canvas {
         totalLength += metric.length;
       }
 
-      final textSize = getTextPainterFor(text, textStyle, textDirection: textDirection).size;
+      final textSize = getTextPainterFor(
+        text,
+        textStyle,
+        textDirection: textDirection,
+      ).size;
 
       final chars = isClosed ? (text.length) : (text.length - 1);
 
@@ -54,10 +58,15 @@ extension DrawOnPath on Canvas {
     double currDist = 0;
 
     for (int i = 0; i < text.length; i++) {
-      final textPainter = getTextPainterFor(text[i], textStyle, textDirection: textDirection);
+      final textPainter = getTextPainterFor(
+        text[i],
+        textStyle,
+        textDirection: textDirection,
+      );
       final charSize = textPainter.size;
 
-      final tangent = pathMetricsList[currentMetric].getTangentForOffset(currDist + charSize.width / 2)!;
+      final tangent = pathMetricsList[currentMetric]
+          .getTangentForOffset(currDist + charSize.width / 2)!;
       final currLetterPos = tangent.position;
       final currLetterAngle = tangent.angle;
 
@@ -67,8 +76,15 @@ extension DrawOnPath on Canvas {
       textPainter.paint(
         this,
         currLetterPos
-            .translate(-currLetterPos.dx, -currLetterPos.dy)
-            .translate(-charSize.width * 0.5, -charSize.height * getTranslateYFactorForTextAlignment(textAlignment)),
+            .translate(
+              -currLetterPos.dx,
+              -currLetterPos.dy,
+            )
+            .translate(
+              -charSize.width * 0.5,
+              -charSize.height *
+                  getTranslateYFactorForTextAlignment(textAlignment),
+            ),
       );
       restore();
       currDist += charSize.width + letterSpacing;

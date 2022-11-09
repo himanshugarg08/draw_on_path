@@ -13,7 +13,7 @@ Demo Video: https://youtu.be/TZAKSanD73k
 
 ## Showcase
 
-<img src="./gifs/1.gif" width="360"> <img src="./gifs/2.gif" width="360"> <img src="./gifs/3.gif" width="360"> <img src="./gifs/4.gif" width="360"> <img src="./gifs/5.gif" width="360"> <img src="./gifs/6.gif" width="360"> <img src="./gifs/7.gif" width="360">
+<img src="https://github.com/himanshugarg08/draw_on_path/blob/main/gifs/1.gif?raw=true" width="360"> <img src="https://github.com/himanshugarg08/draw_on_path/blob/main/gifs/2.gif?raw=true" width="360"> <img src="https://github.com/himanshugarg08/draw_on_path/blob/main/gifs/3.gif?raw=true" width="360"> <img src="https://github.com/himanshugarg08/draw_on_path/blob/main/gifs/4.gif?raw=true" width="360"> <img src="https://github.com/himanshugarg08/draw_on_path/blob/main/gifs/5.gif?raw=true" width="360"> <img src="https://github.com/himanshugarg08/draw_on_path/blob/main/gifs/6.gif?raw=true" width="360"> 
 
 ## Usage
 

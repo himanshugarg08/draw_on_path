@@ -1,7 +1,11 @@
 import 'package:draw_on_path/draw_on_path.dart';
 import 'package:flutter/material.dart';
 
-TextPainter getTextPainterFor(String text, TextStyle textStyle, {TextDirection textDirection = TextDirection.ltr}) {
+TextPainter getTextPainterFor(
+  String text,
+  TextStyle textStyle, {
+  TextDirection textDirection = TextDirection.ltr,
+}) {
   final textSpan = TextSpan(text: text, style: textStyle);
   final textPainter = TextPainter(text: textSpan, textDirection: textDirection);
   textPainter.layout();
