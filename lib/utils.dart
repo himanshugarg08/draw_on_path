@@ -12,13 +12,13 @@ TextPainter getTextPainterFor(
   return textPainter;
 }
 
-double getTranslateYFactorForTextAlignment(TextAlignment textAlignment) {
-  switch (textAlignment) {
-    case TextAlignment.up:
-      return 0.0;
-    case TextAlignment.mid:
-      return 0.5;
-    case TextAlignment.bottom:
+double getTranslateYFactorForTextAlignment(TextOffset offset) {
+  switch (offset) {
+    case TextOffset.above:
       return 1.0;
+    case TextOffset.inline:
+      return 0.5;
+    case TextOffset.below:
+      return 0.0;
   }
 }

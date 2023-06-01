@@ -1,9 +1,11 @@
 library draw_on_path;
 
+import 'dart:math';
+
 import 'package:draw_on_path/utils.dart';
 import 'package:flutter/material.dart';
 
-enum TextAlignment { up, mid, bottom }
+enum TextOffset { above, inline, below }
 
 extension DrawOnPath on Canvas {
   /// draws [text] on [path] with [textStyle]
@@ -24,38 +26,65 @@ extension DrawOnPath on Canvas {
     Path path, {
     TextStyle textStyle = const TextStyle(),
     double letterSpacing = 0.0,
-    bool autoSpacing = false,
     bool isClosed = false,
+    bool reorient = true,
+    EdgeInsets padding = EdgeInsets.zero,
     TextDirection textDirection = TextDirection.ltr,
-    TextAlignment textAlignment = TextAlignment.mid,
+    TextOffset textOffset = TextOffset.inline,
+    TextAlign textAlign = TextAlign.center,
   }) {
     if (text.isEmpty) {
       return;
     }
 
-    final pathMetrics = path.computeMetrics();
-    final pathMetricsList = pathMetrics.toList();
+    final pathMetricsList = path.computeMetrics().toList();
+    final textSize = getTextPainterFor(
+      text,
+      textStyle,
+      textDirection: textDirection,
+    ).size;
 
-    if (autoSpacing && text.length > 1) {
-      var totalLength = 0.0;
 
-      for (var metric in path.computeMetrics()) {
-        totalLength += metric.length;
+    var totalLength = 0.0;
+    for (var metric in path.computeMetrics()) {
+      totalLength += metric.length;
+    }
+
+    bool flip = false;
+    var reorientedOffset = textOffset;
+    final available = totalLength - textSize.width - padding.horizontal;
+    if (pathMetricsList.length == 1 && reorient && textOffset != TextOffset.inline) {
+      final f = pathMetricsList.first.getTangentForOffset(0)!.position;
+      final l = pathMetricsList.last.getTangentForOffset(totalLength - 1)!.position;
+      if (l.dx < f.dx) {
+        flip = true;
       }
-
-      final textSize = getTextPainterFor(
-        text,
-        textStyle,
-        textDirection: textDirection,
-      ).size;
-
-      final chars = isClosed ? (text.length) : (text.length - 1);
-
-      letterSpacing = (totalLength - textSize.width) / chars;
     }
 
     int currentMetric = 0;
-    double currDist = 0;
+    double currDist = padding.left;
+    switch (textAlign) {
+      case TextAlign.start:
+      case TextAlign.left:
+        break;
+      case TextAlign.center:
+        currDist = available / 2;
+        break;
+      case TextAlign.end:
+      case TextAlign.right:
+        currDist = available;
+        // TODO: Handle this case.
+        break;
+      case TextAlign.justify:
+        if (text.length > 1) {
+          final chars = isClosed ? (text.length) : (text.length - 1);
+          letterSpacing = (totalLength - textSize.width) / chars;
+        }
+        break;
+    }
+    if (flip) {
+      text = text.characters.toList().reversed.join();
+    }
 
     for (int i = 0; i < text.length; i++) {
       final textPainter = getTextPainterFor(
@@ -65,10 +94,9 @@ extension DrawOnPath on Canvas {
       );
       final charSize = textPainter.size;
 
-      final tangent = pathMetricsList[currentMetric]
-          .getTangentForOffset(currDist + charSize.width / 2)!;
+      final tangent = pathMetricsList[currentMetric].getTangentForOffset(currDist + charSize.width / 2)!;
       final currLetterPos = tangent.position;
-      final currLetterAngle = tangent.angle;
+      final currLetterAngle = tangent.angle + (flip ? pi : 0);
 
       save();
       translate(currLetterPos.dx, currLetterPos.dy);
@@ -82,8 +110,7 @@ extension DrawOnPath on Canvas {
             )
             .translate(
               -charSize.width * 0.5,
-              -charSize.height *
-                  getTranslateYFactorForTextAlignment(textAlignment),
+              -charSize.height * getTranslateYFactorForTextAlignment(reorientedOffset),
             ),
       );
       restore();
