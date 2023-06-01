@@ -72,7 +72,6 @@ extension DrawOnPath on Canvas {
       case TextAlign.end:
       case TextAlign.right:
         currDist = available;
-        // TODO: Handle this case.
         break;
       case TextAlign.justify:
         if (text.length > 1) {
@@ -81,6 +80,7 @@ extension DrawOnPath on Canvas {
         }
         break;
     }
+
     if (flip) {
       text = text.characters.toList().reversed.join();
     }
@@ -92,7 +92,6 @@ extension DrawOnPath on Canvas {
         textDirection: textDirection,
       );
       final charSize = textPainter.size;
-
       final tangent = pathMetricsList[currentMetric].getTangentForOffset(currDist + charSize.width / 2)!;
       final currLetterPos = tangent.position;
       final currLetterAngle = tangent.angle + (flip ? pi : 0);
