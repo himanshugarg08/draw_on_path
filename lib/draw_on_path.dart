@@ -44,7 +44,6 @@ extension DrawOnPath on Canvas {
       textDirection: textDirection,
     ).size;
 
-
     var totalLength = 0.0;
     for (var metric in path.computeMetrics()) {
       totalLength += metric.length;
@@ -78,7 +77,7 @@ extension DrawOnPath on Canvas {
       case TextAlign.justify:
         if (text.length > 1) {
           final chars = isClosed ? (text.length) : (text.length - 1);
-          letterSpacing = (totalLength - textSize.width) / chars;
+          letterSpacing = available / chars;
         }
         break;
     }
